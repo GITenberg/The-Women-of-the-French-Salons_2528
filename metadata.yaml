@@ -1,0 +1,27 @@
+_repo: The-Women-of-the-French-Salons_2528
+_version: 0.0.1
+creator:
+  author:
+    agent_name: Mason, Amelia Gere
+    alias: Mason, Amelia Ruth Gere
+    gutenberg_agent_id: '954'
+    url: http://www.gutenberg.org/2009/agents/954
+description: Biographical sketches of French women who participated in salons which
+  reveal their intellectual and cultural influence.
+gutenberg_issued: '2001-02-01'
+gutenberg_type: Text
+identifiers:
+  gutenberg: '2528'
+language: en
+publisher: Project Gutenberg
+rights: Public domain in the USA.
+rights_url: http://creativecommons.org/about/pdm
+subjects:
+- !lcsh 'French literature -- Women authors -- History and criticism'
+- !lcc 'PQ'
+- !lcsh 'Salons -- France'
+- !lcsh 'Women and literature -- France'
+- !lcsh 'Women authors, French -- Biography'
+- GITenberg
+title: The Women of the French Salons
+url: http://www.gutenberg.org/ebooks/2528
