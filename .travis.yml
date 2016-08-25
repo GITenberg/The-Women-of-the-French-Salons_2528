@@ -1,0 +1,61 @@
+sudo: required
+dist: trusty
+language: ruby
+
+before_install:
+before_install:
+- gem install asciidoctor -v 1.5.2
+- gem install tilt
+- sudo pip install git+https://github.com/gitenberg-dev/gitberg
+- sudo pip install pillow
+- sudo pip install cssutils
+- sudo pip install docutils
+- sudo pip install roman
+- sudo pip install git+https://github.com/gitenberg-dev/pg-epubmaker
+script:
+- VERSION=`ruby -e "require 'yaml'; meta = YAML.load_file('metadata.yaml'); puts meta['_version'];"`
+- git clone https://github.com/gitenberg-dev/asciidoctor-htmlbook.git
+- sudo pip install -r asciidoctor-htmlbook/gitberg-machine/requirements.txt
+
+- /usr/bin/python -c "from gitenberg import travis; travis.build_epub()"
+- ebook-convert book.epub book.mobi
+- xvfb-run ebook-convert book.epub book.pdf
+branches:
+  only:
+  - master
+notifications:
+  webhooks:
+    urls:
+      - https://unglue.it/api/travisci/webhook
+    on_success: always
+    on_failure: never
+    on_start: never
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: d4mjw0dMed+X2/COkIffWl6qipv8A7PgNgj8cSVMAKmoX3c+0v5lxcJjHnx5WM2U92zydojTXtRvubVosKqNfchMGko9RocpjcwjbY91QPHXKRqhT1YkoDXgNjn6X6SH4ww6BTrmNlSlb9Dpf6VJgKr6h3/zKezi5NuU0rhWlb+XQdGPUMrHc1fh+UAQYGRsnLEwYIbmVeGkltQ153iACDbQt6qjNmoIieDSbyRpBj5EjVubGPv2twBnqZIRNj1lZXWCcxCF/lUocH2+YsrwuKBGSDCgqIQ5Elh2dpBiuF7441JuUg2SRTw/3fyim/NZtfclu4jes1FNs3/B1rsp7YmjU27CAHpASt1iGycmO9GtM4vQOgOJqWY4nOSUZ9sqXXXtHuG5Opf6NHcOMToyMegzBjpsbzk3qon8z+VXodUHHw/cRC0BX847lpZ7vFPM6QN6GN6o0vy+Tj08xv1d1mEpQG4AziM+uLPFeUdS+5v2kbkH5NFhIFRn0w8NjALnDixAnusEyeGuydMDXkA++a/mqzX4YiAZ+oKsXtYN+ZoPXtLsQEkZNx8fh0sVxCPSl/F5kznz6k75W98LXu8KBfAXNM87Se5F70OgK/Wc30p/veJ2t/z3PoVlvbIl63AZadycLc4i6WMxtngvYmzZ1EH4hx484v8RVKDIjNe32eM=
+  file:
+    - book.epub
+    - book.mobi
+    - book.pdf
+  "on":
+    repo: GITenberg/The-Women-of-the-French-Salons_2528
+addons:
+  apt:
+    packages:
+    - xsltproc
+    - xvfb
+    - calibre
+    - python-pip
+    - git
+    - python-dev
+    - libjpeg-dev
+    - libpng-dev
+    - libfreetype6
+    - libfreetype6-dev
+    - zlib1g-dev
+    - python-lxml
+    - libxml2-dev
+    - libxslt1-dev
+    - tidy
